@@ -42,9 +42,9 @@ public class UploadBug extends Thread {
 		this.assignedTo = assignedTo;  // 提交给谁
 		this.title = title;  // 标题
 		this.steps = steps;  // 内容
-		this.logPath = logPath;  //ftp上log的zip地址
+//		this.logPath = logPath;  //ftp上log的zip地址
 		this.severity = severity;  // 严重等级
-		this.phonedes = phonedes;  // 手动输入的型号
+//		this.phonedes = phonedes;  // 手动输入的型号
 		this.phoneteamid = phoneteamid;  // 机型
 	}
 

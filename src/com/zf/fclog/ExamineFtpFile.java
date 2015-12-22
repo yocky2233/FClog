@@ -26,8 +26,9 @@ public class ExamineFtpFile {
 		this.downloadPath = downloadPath;
 	}
 	
-	
-	public void startRun() {
+	//过滤出对应内容后提单
+	public void startRun(String account,String password) {
+		System.out.println("账号："+account+"密码："+password);
 		boolean Login = false;
 		try {
 			Login = connect(addr,username,password);
@@ -42,7 +43,10 @@ public class ExamineFtpFile {
 				//下载日志
 				downloadFile(fileName,downloadPath,ftpPath);
 				//过滤日志
-				
+				Filter f = new Filter();
+				f.readFile(fileName,account,password);
+			}else {
+				System.out.println("服务器没有对应文件");
 			}
 		}
 	}
@@ -136,7 +140,7 @@ public class ExamineFtpFile {
 
 	public static void main(String[] args) throws Exception {
 		ExamineFtpFile t = new ExamineFtpFile("/IUNILog/","18.8.5.99","ftp-aurora", "aurora","123","f://");
-		t.startRun();
+//		t.startRun();
 //		t.connect("18.8.5.99","ftp-aurora", "aurora");
 //		t.downloadFile("123.txt", "f://", "/IUNILog/");
 		System.out.println("下载完毕");

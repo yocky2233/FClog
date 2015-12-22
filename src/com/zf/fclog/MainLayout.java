@@ -211,7 +211,9 @@ public class MainLayout {
 					//获取昨天的时间
 					Calendar cal = Calendar.getInstance();
 					cal.add(Calendar.DATE, -1);
-					final String fileName = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					String name = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					final String fileName = "FC_LOG_"+name;
+					System.out.println("昨天时间："+fileName);
 					
 					label6.setText("运行中....");
 					label6.setBackground(display.getSystemColor(SWT.COLOR_DARK_GREEN));
@@ -235,13 +237,15 @@ public class MainLayout {
 					}
 					final ExamineFtpFile eff = new ExamineFtpFile(text4.getText().trim()+"/",textFtp.getText().trim(),textFtp2.getText().trim(),
 							textFtp3.getText().trim(),fileName,text5.getText().trim()+"/");
+					final String zhanghao = text.getText().trim();
+					final String mima = text2.getText().trim();
 					Timer timer = new Timer();
 					timerTask = new TimerTask() {
 						@Override
 						public void run() {
 							// 要执行的代码
 							System.out.println("运行");
-							eff.startRun();
+							eff.startRun(zhanghao,mima);
 						}
 					};
 					// 以每24小时执行一次
