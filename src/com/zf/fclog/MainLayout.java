@@ -250,8 +250,6 @@ public class MainLayout {
 					};
 					// 以每24小时执行一次
 					timer.scheduleAtFixedRate(timerTask, startTime, daySpan);
-				}else {
-//					JOptionPane.showMessageDialog(null, "信息消息",“提示", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

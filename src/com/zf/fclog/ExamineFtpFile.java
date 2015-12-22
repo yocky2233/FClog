@@ -4,9 +4,13 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
 
 public class ExamineFtpFile {
 	private FTPClient ftp;
@@ -27,8 +31,8 @@ public class ExamineFtpFile {
 	}
 	
 	//过滤出对应内容后提单
-	public void startRun(String account,String password) {
-		System.out.println("账号："+account+"密码："+password);
+	public void startRun(String CDaccount,String CDpassword) {
+		System.out.println("账号："+CDaccount+"密码："+CDpassword);
 		boolean Login = false;
 		try {
 			Login = connect(addr,username,password);
@@ -44,8 +48,9 @@ public class ExamineFtpFile {
 				downloadFile(fileName,downloadPath,ftpPath);
 				//过滤日志
 				Filter f = new Filter();
-				f.readFile(fileName,account,password);
+				f.readFile(fileName,CDaccount,CDpassword);
 			}else {
+				JOptionPane.showMessageDialog(null, "服务器未找到"+fileName+"对应文件！", "提示",JOptionPane.WARNING_MESSAGE); 
 				System.out.println("服务器没有对应文件");
 			}
 		}
@@ -60,6 +65,7 @@ public class ExamineFtpFile {
 	 * @throws Exception
 	 */
 	private boolean connect(String addr,String username, String password) throws Exception {
+		System.out.println("地址："+addr+" "+"账号："+username+" "+"密码："+password);
 		boolean result = false;
 		ftp = new FTPClient();
 		int reply;
@@ -69,6 +75,7 @@ public class ExamineFtpFile {
 		reply = ftp.getReplyCode();
 		if (!FTPReply.isPositiveCompletion(reply)) {
 			ftp.disconnect();
+			System.out.println("失败");
 			return result;
 		}
 //		ftp.changeWorkingDirectory(path);
@@ -140,7 +147,7 @@ public class ExamineFtpFile {
 
 	public static void main(String[] args) throws Exception {
 		ExamineFtpFile t = new ExamineFtpFile("/IUNILog/","18.8.5.99","ftp-aurora", "aurora","123","f://");
-//		t.startRun();
+		t.startRun("aaa","123");
 //		t.connect("18.8.5.99","ftp-aurora", "aurora");
 //		t.downloadFile("123.txt", "f://", "/IUNILog/");
 		System.out.println("下载完毕");
