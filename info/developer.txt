@@ -1,9 +1,10 @@
-com.android.settings contains wolfu 
+com.android.settings contains alexluo 
 gn.com.android.update contains jiyouguang
-com.android.phone,com.android.contacts,com.aurora.reject contains guangyuli
+com.android.phone,com.android.contacts,com.aurora.reject,com.android.providers.telephony contains guangyuli
 com.android.systemui contains juntang
 com.aurora.launcher,com.aurora.change contains AntinoXie
 com.android.mms contains AlexXu
 com.android.gallery3d,com.android.music contains paulzhang
 com.aurora.filemanager,com.aurora.secure,com.aurora.netmanage,com.android.deskclock,com.android.calendar,com.android.calculator2,com.aurora.note,com.aurora.market,com.aurora.privacymanage,com.aurora.email,com.aurora.weatherforecast,com.aurora.account contains jasonzhang
 com.android.browser contains minggao
+com.aurora.iunivoice contains BillyLin

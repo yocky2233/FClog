@@ -29,12 +29,12 @@ public class UploadBug extends Thread {
 	private String severity;
 	private String phonedes;
 	private String phoneteamid;
-	private String logPath;
 	private String bugSb;
+	private String versions;
 
 	public UploadBug(String name, String password, String module, String openedBuild,
-			String assignedTo, String title, String steps,String logPath, String severity,
-			String phonedes, String phoneteamid) {
+			String assignedTo, String title, String steps, String severity,
+			String phonedes, String phoneteamid,String versions) {
 		this.name = name;  //禅道账号
 		this.password = password; //禅道密码
 		this.module = module;  //bug模块
@@ -42,10 +42,10 @@ public class UploadBug extends Thread {
 		this.assignedTo = assignedTo;  // 提交给谁
 		this.title = title;  // 标题
 		this.steps = steps;  // 内容
-//		this.logPath = logPath;  //ftp上log的zip地址
 		this.severity = severity;  // 严重等级
-//		this.phonedes = phonedes;  // 手动输入的型号
+		this.phonedes = phonedes;  // 手动输入的型号
 		this.phoneteamid = phoneteamid;  // 机型
+		this.versions = versions; //版本号
 	}
 
 	public void run() {
@@ -66,7 +66,7 @@ public class UploadBug extends Thread {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-		System.out.println("准备提交bug："+"\n"+"账号:"+name+"密码："+password+"标题："+title+"ftp地址："+logPath+"等级："+severity+"输入型号："+phonedes+"机型："+phoneteamid);
+		System.out.println("准备提交bug："+"\n"+"账号:"+name+"密码："+password+"标题："+title+"等级："+severity+"输入型号："+phonedes+"机型："+phoneteamid);
 		HttpClient client = new HttpClient();
 		client.getHostConfiguration().setHost(LOGON_SITE, LOGON_PORT);
 
@@ -114,8 +114,8 @@ public class UploadBug extends Thread {
 				openedBuild); // 影响版本
 		NameValuePair inputAssignedTo = new NameValuePair("assignedTo",
 				assignedTo); // 提交给谁
-		NameValuePair inputTitle = new NameValuePair("title", "[日志上报]"+title); // 标题
-		NameValuePair inputSteps = new NameValuePair("steps", "<p>[Log]</p> <p>"+steps+"</p> <p>[备注]</p> <p>"+logPath+"</p>"); // 内容
+		NameValuePair inputTitle = new NameValuePair("title", "【日志上报】"+title); // 标题
+		NameValuePair inputSteps = new NameValuePair("steps", "<p>[版本]</p> <p>"+versions+"</p> <p>[Log]</p> <p>"+steps+"</p> "); // 内容
 		NameValuePair inputType = new NameValuePair("type", "codeerror");
 		NameValuePair inputSeverity = new NameValuePair("severity", severity); // 严重等级
 		NameValuePair inputCases = new NameValuePair("case", "0");
@@ -136,7 +136,7 @@ public class UploadBug extends Thread {
 		}
 		post2.releaseConnection();
 		System.out.println("已提交bug");
-		System.out.println("标题："+"[MTTF]"+title+"内容："+steps+"log路径："+logPath);
+		System.out.println("标题："+"[MTTF]"+title+"内容："+steps);
 	}
 	
 	//让post能提交中文的内容，不会乱码     
@@ -158,20 +158,21 @@ public class UploadBug extends Thread {
 		return Time;
 	}
 
-//	public static void main(String[] args) {
-//		UploadBug t = new UploadBug();
-//		try {
-//			t.uploadBug(
-//					"tim.zheng",
-//					"888888",
-//					"0",
-//					"trunk",
-//					"tim.zheng",
-//					"test",
-//					"<p>[monkeyLog]</p> <p>test</p> <p>[logPath]</p> <p>xxx/xxx.log</p>",
-//					"3", "U0001", "28");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		UploadBug t = new UploadBug(
+				"tim.zheng",
+				"888888",
+				"0",
+				"trunk",
+				"tim.zheng",
+				"test",
+				"logloglog",
+				"3", "U0001", "28","iuni-1234568");
+		try {
+			t.run(
+					);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -51,6 +51,7 @@ public class MainLayout {
 	static Text textFtp2;
 	static Text textFtp3;
 	static TimerTask timerTask;
+	static Label bugShow;
 	
 	static {
 		File savePath = new File("./Log"); 
@@ -63,8 +64,8 @@ public class MainLayout {
 		}
 		boolean start = readPath();
 		if(start) {
-			Account = "tim.zheng";
-			password = "888888";
+			Account = "TalkBack";
+			password = "TalkBack999";
 			hour = "03";
 			min = "00";
 			FtpPath = "/IUNILog/Log";
@@ -84,7 +85,7 @@ public class MainLayout {
 		final Shell shell = new Shell(display, SWT.MIN); // 创建该Display的shell类实例,SWT.MIN无法最大化
 		shell.setBounds(500, 500, 550, 480); // 设置窗口大小
 		shell.setText("日志上报提单"); // 设置窗口标题
-		shell.setImage(new Image(display, "./bug.jpg")); // 给窗口设置图片
+		shell.setImage(new Image(display, "./FClog.ico")); // 给窗口设置图片
 		//在当前窗口中创建第一个分组
 		Group group = new Group(shell,SWT.VERTICAL);
 		group.setBounds(10, 10, 250, 100);
@@ -167,11 +168,11 @@ public class MainLayout {
 		Group group4 = new Group(shell,SWT.VERTICAL);
 		group4.setBounds(10, 290, 520, 50);
 		group4.setText("提bug情况");
-		Label bugShow = new Label(group4,SWT.NONE);
+		bugShow = new Label(group4,SWT.NONE);
 		bugShow.setAlignment(SWT.CENTER); //文字显示在中间
 //		bugShow.setBackground(display.getSystemColor(SWT.COLOR_GRAY)); 
 		bugShow.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)); 
-		bugShow.setText("2015-10-21 共提交16个bug");
+		bugShow.setText("");
 		bugShow.setFont(new Font(display,"宋体",16,SWT.NORMAL)); //设置字体字号
 		bugShow.setBounds(10, 15, 500, 30);
 		
@@ -209,9 +210,12 @@ public class MainLayout {
 				if((label6.getText()).equals("待命中....")) {
 					System.out.println("开始");
 					//获取昨天的时间
-					Calendar cal = Calendar.getInstance();
-					cal.add(Calendar.DATE, -1);
-					String name = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+//					Calendar cal = Calendar.getInstance();
+//					cal.add(Calendar.DATE, -1);
+//					String name = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+//					final String fileName = "FC_LOG_"+name;
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String name = dateFormat.format(new Date());
 					final String fileName = "FC_LOG_"+name;
 					System.out.println("昨天时间："+fileName);
 					
@@ -236,7 +240,7 @@ public class MainLayout {
 						startTime = new Date(startTime.getTime() + daySpan);
 					}
 					final ExamineFtpFile eff = new ExamineFtpFile(text4.getText().trim()+"/",textFtp.getText().trim(),textFtp2.getText().trim(),
-							textFtp3.getText().trim(),fileName,text5.getText().trim()+"/");
+							textFtp3.getText().trim(),fileName,text5.getText().trim()+"/",shell,bugShow);
 					final String zhanghao = text.getText().trim();
 					final String mima = text2.getText().trim();
 					Timer timer = new Timer();
