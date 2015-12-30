@@ -259,17 +259,19 @@ public class MainLayout {
 		});
 		stop.addSelectionListener(new SelectionAdapter() {  //Õ£÷π
 			public void widgetSelected(SelectionEvent event) {
-				System.out.println("Õ£÷π");
-				timerTask.cancel(); //Õ£÷πTimerTask‘À––
-				label6.setBackground(display.getSystemColor(SWT.COLOR_DARK_RED));
-				label6.setText("Õ£÷π");
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if((label6.getText()).equals("‘À––÷–....")) {
+					System.out.println("Õ£÷π");
+					timerTask.cancel(); //Õ£÷πTimerTask‘À––
+					label6.setBackground(display.getSystemColor(SWT.COLOR_DARK_RED));
+					label6.setText("Õ£÷π");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					label6.setBackground(display.getSystemColor(SWT.COLOR_GRAY)); 
+					label6.setText("¥˝√¸÷–....");
 				}
-				label6.setBackground(display.getSystemColor(SWT.COLOR_GRAY)); 
-				label6.setText("¥˝√¸÷–....");
 			}
 		});
 
