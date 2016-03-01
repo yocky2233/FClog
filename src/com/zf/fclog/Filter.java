@@ -114,7 +114,6 @@ public class Filter {
 //							System.out.println("包名："+pk);
 							if(log.contains(pk)) {
 								//系统bug处理
-//								System.out.println(pk);
 								System.out.println("为系统应用");
 								bug++;
 								String kf;
