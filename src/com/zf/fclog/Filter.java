@@ -111,7 +111,7 @@ public class Filter {
 						
 						while((pk=br.readLine())!=null) {
 							//判断是否为系统应用
-//							System.out.println("包名："+pk);
+							System.out.println("包名："+pk);
 							if(log.contains(pk)) {
 								//系统bug处理
 								System.out.println("为系统应用");
