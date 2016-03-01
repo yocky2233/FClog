@@ -60,16 +60,17 @@ public class Filter {
 				for (int j = 0; j < rsColumns; j++) {
 					switch (j) {
 					case 0:
-						Cell JX = readsheet.getCell(j, i);
+						Cell JX = readsheet.getCell(j, i);  //获取机型
 						type = JX.getContents().toString();
 						break;
                     case 1:
-                    	Cell BB = readsheet.getCell(j, i);
+                    	Cell BB = readsheet.getCell(j, i); //获取版本
                     	versions = BB.getContents().toString();
 						break;
                     case 2:
-                    	Cell LOG = readsheet.getCell(j, i);
+                    	Cell LOG = readsheet.getCell(j, i);  //获取日志
                     	if((LOG.getContents()).contains("Build fingerprint:")||(LOG.getContents()).contains("com.android.camera")) {
+                    		
                     		continue;
                     	}
                     	aa++;
@@ -119,7 +120,7 @@ public class Filter {
 								String kf;
 								while((kf=br3.readLine())!=null) {
 									if(kf.contains(pk)) {
-										assignedTo = kf.split("contains")[1];
+										assignedTo = kf.split("contains")[1].trim();
 										break;
 									}
 								}
@@ -149,6 +150,7 @@ public class Filter {
 //						System.out.println("开发是："+assignedTo);
 						//执行提单
 						UploadBug t = new UploadBug(account,password,"0","trunk",assignedTo,title,logGS.toString(),"3",type,phoneteamid,versions);
+						Thread.sleep(1000);
 //						UploadBug t = new UploadBug("tim.zheng","888888","0","trunk","tim.zheng",title,logGS.toString(),"3",type,phoneteamid,versions);
 						try {
 							t.run(

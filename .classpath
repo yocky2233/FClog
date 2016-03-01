@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="libs/jxl.jar"/>
 	<classpathentry kind="lib" path="libs/commons-logging.jar"/>
 	<classpathentry kind="lib" path="libs/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="libs/swt64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

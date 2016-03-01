@@ -72,7 +72,7 @@ public class MainLayout {
 			LogPath = "./Log";
 			Ftp = "18.8.5.99";
 			FtpUsername = "ftp-aurora";
-			FtpPassword = "aurora";
+			FtpPassword = "aurora111";
 		}
 	}
 
@@ -104,7 +104,6 @@ public class MainLayout {
 		text2.setBounds(80, 50, 130, 20);
 		//创建第二个分组
 		Group group2 = new Group(shell,SWT.VERTICAL);
-//		group2.setBounds(280, 10, 250, 100);
 		group2.setBounds(10, 110, 250, 100);
 		group2.setText("设置其它参数");
 		Label label3 = new Label(group2,SWT.NONE);
@@ -209,16 +208,10 @@ public class MainLayout {
 			public void widgetSelected(SelectionEvent event) {
 				if((label6.getText()).equals("待命中....")) {
 					System.out.println("开始");
-					//获取昨天的时间
-//					Calendar cal = Calendar.getInstance();
-//					cal.add(Calendar.DATE, -1);
-//					String name = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+					//后去当天时间
+//					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//					String name = dateFormat.format(new Date());
 //					final String fileName = "FC_LOG_"+name;
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-					String name = dateFormat.format(new Date());
-					final String fileName = "FC_LOG_"+name;
-					System.out.println("昨天时间："+fileName);
-					
 					label6.setText("运行中....");
 					label6.setBackground(display.getSystemColor(SWT.COLOR_DARK_GREEN));
 					saveSetting();
@@ -240,7 +233,7 @@ public class MainLayout {
 						startTime = new Date(startTime.getTime() + daySpan);
 					}
 					final ExamineFtpFile eff = new ExamineFtpFile(text4.getText().trim()+"/",textFtp.getText().trim(),textFtp2.getText().trim(),
-							textFtp3.getText().trim(),fileName,text5.getText().trim()+"/",shell,bugShow);
+							textFtp3.getText().trim(),text5.getText().trim()+"/",shell,bugShow);
 					final String zhanghao = text.getText().trim();
 					final String mima = text2.getText().trim();
 					Timer timer = new Timer();
@@ -249,7 +242,13 @@ public class MainLayout {
 						public void run() {
 							// 要执行的代码
 							System.out.println("运行");
-							eff.startRun(zhanghao,mima);
+							//获取昨天的时间
+							Calendar cal = Calendar.getInstance();
+							cal.add(Calendar.DATE, -1);
+							String name = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+							final String fileName = "FC_LOG_"+name;
+							System.out.println("昨天时间："+fileName);
+							eff.startRun(zhanghao,mima,fileName);
 						}
 					};
 					// 以每24小时执行一次

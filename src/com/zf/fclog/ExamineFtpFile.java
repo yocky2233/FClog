@@ -25,20 +25,21 @@ public class ExamineFtpFile {
 	private Shell shell;
 	private org.eclipse.swt.widgets.Label bugShow;
 
-	ExamineFtpFile(String ftpPath,String addr,String username, String password,String fileName,String downloadPath,Shell shell,org.eclipse.swt.widgets.Label bugShow2) {
+	ExamineFtpFile(String ftpPath,String addr,String username, String password,String downloadPath,Shell shell,org.eclipse.swt.widgets.Label bugShow2) {
 		this.ftpPath = ftpPath;
 		this.addr = addr;
 		this.username = username;
 		this.password = password;
-		this.fileName = fileName+".xls";
+//		this.fileName = fileName+".xls";
 		this.downloadPath = downloadPath;
 		this.shell = shell;
 		this.bugShow = bugShow2;
 	}
 	
 	//过滤出对应内容后提单
-	public void startRun(String CDaccount,String CDpassword) {
+	public void startRun(String CDaccount,String CDpassword,String Name) {
 //		System.out.println("账号："+CDaccount+"密码："+CDpassword);
+		fileName = Name+".xls";
 		boolean Login = false;
 		try {
 			Login = connect(addr,username,password);

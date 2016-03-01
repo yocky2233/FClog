@@ -66,7 +66,7 @@ public class UploadBug extends Thread {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-		System.out.println("准备提交bug："+"\n"+"账号:"+name+"密码："+password+"标题："+title+"等级："+severity+"输入型号："+phonedes+"机型："+phoneteamid);
+//		System.out.println("准备提交bug："+"\n"+"账号:"+name+"密码："+password+"标题："+title+"等级："+severity+"输入型号："+phonedes+"机型："+phoneteamid);
 		HttpClient client = new HttpClient();
 		client.getHostConfiguration().setHost(LOGON_SITE, LOGON_PORT);
 
@@ -136,7 +136,7 @@ public class UploadBug extends Thread {
 		}
 		post2.releaseConnection();
 		System.out.println("已提交bug");
-		System.out.println("标题："+"[MTTF]"+title+"内容："+steps);
+//		System.out.println("标题："+"[MTTF]"+title+"内容："+steps);
 	}
 	
 	//让post能提交中文的内容，不会乱码     
