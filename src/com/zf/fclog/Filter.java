@@ -100,8 +100,8 @@ public class Filter {
 						for(int h=0; h<readLog.length; h++) {
 							if(h==0) {
 								title = readLog[h].trim();
-								if(title.length()>60) {  //判断标题长度是否太长，太长会提交失败，需进行截取
-									title = title.substring(0,60);
+								if(title.length()>100) {  //判断标题长度是否太长，太长会提交失败，需进行截取
+									title = title.substring(0,100);
 								}
 							}
 							logGS.append("<p>"+readLog[h]+"<p>"+"\n");
