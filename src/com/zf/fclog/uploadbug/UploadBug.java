@@ -49,27 +49,8 @@ public class UploadBug extends Thread {
 	}
 
 	public void run() {
-//		String nb = getTime("HHmmss");
-//		String SaveLogTime = (new TimeContainer()).getSaveLogTime();
-//		try {
-//			File re = new File("./bug/"+SaveLogTime+"/"+title+nb+".txt");
-//			System.out.println("提交的log文件："+"./bug/"+SaveLogTime+"/"+title+nb+".txt");
-//			if (!re.exists()) {    //目录不存在的话就创建目录
-//				re.createNewFile();
-//		    }
-//			FileOutputStream is = new FileOutputStream(re);
-//			BufferedWriter br = new BufferedWriter(new OutputStreamWriter(is));
-//			br.write(bugSb);
-//			br.close();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println("准备提交bug："+"\n"+"账号:"+name+"密码："+password+"标题："+title+"等级："+severity+"输入型号："+phonedes+"机型："+phoneteamid);
 		HttpClient client = new HttpClient();
 		client.getHostConfiguration().setHost(LOGON_SITE, LOGON_PORT);
-
 		// 登录页面
 		PostMethod post = new PostMethod(
 				"http://18.8.0.148:88/aurora/user-login.html");
@@ -78,7 +59,6 @@ public class UploadBug extends Thread {
 		post.setRequestBody(new NameValuePair[] { inputName, inputPassword });
 		try {
 			int status = client.executeMethod(post);
-			System.out.println(post.getResponseBodyAsString());
 		} catch (HttpException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -107,7 +87,7 @@ public class UploadBug extends Thread {
 
 		//上传log
 //		PostMethod post2 = new PostMethod("http://18.8.0.148:88/aurora/bug-create-1-moduleID=0.html");
-		PostMethod post2 = new UTF8PostMethod("http://18.8.0.148:88/aurora/bug-create-1-moduleID=0.html");
+		PostMethod post2 = new UTF8PostMethod("http://18.8.0.148:88/aurora/bug-create-1-moduleID=0.html"); //内容支持中文
 		NameValuePair inputProduct = new NameValuePair("product", "1");
 		NameValuePair inputModule = new NameValuePair("module", module); // 模块
 		NameValuePair inputOpenedBuild = new NameValuePair("openedBuild[]",
@@ -129,14 +109,20 @@ public class UploadBug extends Thread {
 		try {
 			int status2 = client.executeMethod(post2);
 			System.out.println(post2.getResponseBodyAsString());
+			if(!post2.getResponseBodyAsString().contains("success")) {
+				System.out.println("bug提交失败");
+			}else {
+				System.out.println("已提交bug");
+			}
 		} catch (HttpException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		post2.releaseConnection();
-		System.out.println("已提交bug");
-//		System.out.println("标题："+"[MTTF]"+title+"内容："+steps);
+		System.out.println("开发："+assignedTo);
+		System.out.println("标题："+title);
+		System.out.println("内容："+steps);
 	}
 	
 	//让post能提交中文的内容，不会乱码     

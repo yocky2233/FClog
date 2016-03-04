@@ -42,10 +42,10 @@ public class Filter {
 //			int rsColumns = readsheet.getColumns();
 			//只获取机型、版本、日志内容3列
 			int rsColumns = 3;
-			System.out.println("总列数："+rsColumns);
+//			System.out.println("总列数："+rsColumns);
 			// 获取Sheet表中所包含的总行数
 			int rsRows = readsheet.getRows();
-			System.out.println("总行数："+rsRows);
+//			System.out.println("总行数："+rsRows);
 			// 获取指定单元格的对象引用
 			final int a;
 			int aa = 0;
@@ -75,12 +75,10 @@ public class Filter {
                     	}
                     	aa++;
                     	log = LOG.getContents().toString();
-//						System.out.print("日志内容："+log);
 						break;
 					}
 				}
 				if(log!=""&&type!=""&&versions!="") {
-					System.out.println("继续执行");
 					File f = new File("./info/package.txt");
 					File f2 = new File("./info/JiXingInfo.txt");
 					File f3 = new File("./info/developer.txt");
@@ -92,26 +90,26 @@ public class Filter {
 					while((jx=br2.readLine())!=null) {
 						if(jx.contains(type)) {
 							phoneteamid = jx.split("is")[1];
-//							System.out.println("机型号："+phoneteamid);
 							break;
 						}
 					}
 					//如果机型属于为已知型号，继续执行
 					if(phoneteamid!="") {
-//						System.out.println("机型为已知");
 						String[] readLog = log.split("\n");
-//						System.out.println(Arrays.toString(readLog));
 						StringBuffer logGS = new StringBuffer();
 						for(int h=0; h<readLog.length; h++) {
 							if(h==0) {
 								title = readLog[h].trim();
+								if(title.length()>60) {  //判断标题长度是否太长，太长会提交失败，需进行截取
+									title = title.substring(0,60);
+								}
 							}
 							logGS.append("<p>"+readLog[h]+"<p>"+"\n");
 						}
 						
 						while((pk=br.readLine())!=null) {
 							//判断是否为系统应用
-							System.out.println("包名："+pk);
+//							System.out.println("包名："+pk);
 							if(log.contains(pk)) {
 								//系统bug处理
 								System.out.println("为系统应用");
@@ -143,17 +141,11 @@ public class Filter {
 								break;
 							}
 						}
-//						System.out.println(title);
-//						System.out.println(type);
-//						System.out.println(versions);
-//						System.out.println("开发是："+assignedTo);
 						//执行提单
 						UploadBug t = new UploadBug(account,password,"0","trunk",assignedTo,title,logGS.toString(),"3",type,phoneteamid,versions);
-						Thread.sleep(1000);
-//						UploadBug t = new UploadBug("tim.zheng","888888","0","trunk","tim.zheng",title,logGS.toString(),"3",type,phoneteamid,versions);
+						Thread.sleep(500);
 						try {
-							t.run(
-									);
+							t.run();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
